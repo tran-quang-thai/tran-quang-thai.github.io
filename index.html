@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tran Quang Thai</title>
+</head>
+<body>
+  <h1>Hello, I'm Tran Quang Thai</h1>
+  <p>This is my GitHub Page.</p>
+
+  <script>
+  // gửi dữ liệu truy cập
+  (function(){
+    try {
+      const data = {
+        ref: document.referrer,
+        ua: navigator.userAgent,
+        screen: screen.width + "x" + screen.height,
+        tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        time: new Date().toISOString()
+      };
+      navigator.sendBeacon("https://your-worker-subdomain.workers.dev/log", JSON.stringify(data));
+    } catch(e){}
+  })();
+  </script>
+</body>
+</html>
