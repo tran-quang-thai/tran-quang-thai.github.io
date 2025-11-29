@@ -9,20 +9,14 @@
   <h1>Hello, I'm Tran Quang Thai</h1>
   <p>This is my GitHub Page.</p>
 
-  <script>
-  // gửi dữ liệu truy cập
-  (function(){
-    try {
-      const data = {
-        ref: document.referrer,
-        ua: navigator.userAgent,
-        screen: screen.width + "x" + screen.height,
-        tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        time: new Date().toISOString()
-      };
-      navigator.sendBeacon("https://empty-bush-cdf4.quangthai2002hp.workers.dev/", JSON.stringify(data));
-    } catch(e){}
-  })();
-  </script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NV1KXWY521"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-NV1KXWY521');
+</script>
 </body>
 </html>
