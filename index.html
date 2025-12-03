@@ -1,33 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
-  <!-- Google tag (gtag.js)
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NV1KXWY521"></script>
-  <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-NV1KXWY521');
-  </script> -->
+    <script src="https://cdn.counter.dev/script.js" data-id="5ac0cc1c-3c98-4bb3-80ba-07a1339523dd" data-utcoffset="7"></script>
 
-  <script src="https://cdn.counter.dev/script.js" data-id="5ac0cc1c-3c98-4bb3-80ba-07a1339523dd" data-utcoffset="7"></script>
-  
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tran Quang Thai</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tran Quang Thai | Electrical Engineer</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* Thiết lập giao diện hiện đại, Dark Mode Tối Giản */
+        :root {
+            --primary-color: #00C4CC; /* Màu nhấn: Xanh Ngọc Tinh tế */
+            --background-color: #121212; /* Màu nền Rất Tối (Đen/Xám đậm) */
+            --text-color: #e0e0e0; /* Màu chữ Sáng nhạt */
+            --secondary-text-color: #a0a0a0; /* Màu chữ phụ */
+            --card-background: #1e1e1e; /* Màu nền thẻ/khối */
+            --border-color: #333333; /* Màu đường viền nhẹ */
+            --font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Thanh điều hướng */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        .logo a {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--text-color); /* Logo màu trắng nổi bật */
+            text-decoration: none;
+        }
+        
+        /* Liên kết trong navbar */
+        .navbar a {
+            color: var(--secondary-text-color) !important;
+            margin-left: 20px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .navbar a:hover {
+            color: var(--primary-color) !important;
+        }
+
+        /* Phần Hero - Giới thiệu */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: var(--card-background);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            color: var(--primary-color); /* Tên nổi bật bằng màu nhấn */
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            font-weight: 300;
+            color: var(--secondary-text-color);
+        }
+        
+        .hero p strong {
+            color: var(--text-color);
+        }
+        
+        /* Nút hành động */
+        .action-button {
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: var(--background-color); /* Chữ đen/tối trên nền màu nhấn */
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .action-button:hover {
+            background-color: #00FFFF; /* Sáng hơn khi hover */
+        }
+
+        /* Phần Kỹ năng */
+        .section-title {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: var(--text-color); /* Tiêu đề màu trắng */
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .skill-item {
+            background-color: var(--card-background);
+            padding: 20px 10px;
+            border-radius: 8px;
+            transition: transform 0.3s, background-color 0.3s, border-color 0.3s;
+            cursor: default;
+            border: 1px solid transparent; /* Viền trong suốt mặc định */
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            background-color: #242424; /* Hơi sáng hơn khi hover */
+            border-color: var(--primary-color);
+        }
+
+        .skill-item i {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        /* Chân trang */
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: var(--secondary-text-color);
+        }
+
+        .social-links a {
+            color: var(--secondary-text-color);
+            font-size: 1.5em;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+    </style>
 </head>
 
-  <!-- Start --> 
-  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script> 
-  <script src='https://anonyviet.com/resource/ruoibay/ruoi.js' type='text/javascript' var_1='true' var_2='false' var_3='false'></script> 
-  <!-- End -->
-  
-<body>
-  <h1>Hello, I'm Tran Quang Thai</h1>
-  <p>This is my GitHub Page.</p>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+    <script src='https://anonyviet.com/resource/ruoibay/ruoi.js' type='text/javascript' var_1='true' var_2='false' var_3='false'></script>
+    <body>
+    <div class="container">
+        <header class="navbar">
+            <div class="logo">
+                <a href="#">TQT.EE</a>
+            </div>
+            <nav>
+                <a href="#about">Về tôi</a>
+                <a href="#skills">Kỹ năng</a>
+                <a href="https://github.com/YourUsername" target="_blank">Projects</a>
+            </nav>
+        </header>
 
+        <section id="about" class="hero">
+            <h1>Tran Quang Thai</h1>
+            <p><strong>Kỹ sư Điện & Tự động hóa</strong> | Tập trung vào Hệ thống điều khiển và IoT.</p>
+            <p>Tôi là sinh viên Kỹ thuật Điện đang tìm kiếm cơ hội ứng dụng kiến thức về mạch điện, PLC và mô phỏng hệ thống trong môi trường công nghiệp thực tế.</p>
+            <p style="margin-top: 25px;">
+                <a href="https://github.com/YourUsername" target="_blank" class="action-button">
+                    Xem Dự án Kỹ thuật <i class="fas fa-microchip"></i>
+                </a>
+            </p>
+        </section>
+
+        <section id="skills">
+            <h2 class="section-title">⚙️ Kỹ Năng Chuyên Môn</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <i class="fas fa-industry"></i>
+                    <p>PLC (Siemens/Allen-Bradley)</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-robot"></i>
+                    <p>Tự động hóa & IoT</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-bolt"></i>
+                    <p>Thiết bị & Mạch điện</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-calculator"></i>
+                    <p>MATLAB / Simulink</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-cogs"></i>
+                    <p>Thiết kế PCB (Altium/KiCAD)</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-code"></i>
+                    <p>Lập trình nhúng (C/C++)</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="social-links">
+                <a href="https://github.com/YourUsername" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/YourUsername" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <p>&copy; 2025 Tran Quang Thai. Electrical Engineering.</p>
+        </footer>
+
+    </div>
 
 </body>
 </html>
