@@ -234,13 +234,13 @@
             opacity: 0.15;
             pointer-events: none;
             z-index: -2;
-            animation: drift-fast 20s infinite linear;
+            animation: drift-fast 25s infinite linear;
         }
 
-        .cloud-outer:nth-child(1) { left: -100px; animation-delay: 0s; }
-        .cloud-outer:nth-child(2) { left: 15%; animation-delay: -5s; }
-        .cloud-outer:nth-child(3) { left: 35%; animation-delay: -10s; }
-        .cloud-outer:nth-child(4) { left: 55%; animation-delay: -15s; }
+        .cloud-outer:nth-child(1) { left: -200px; animation-delay: 0s; }
+        .cloud-outer:nth-child(2) { left: -200px; animation-delay: -8s; }
+        .cloud-outer:nth-child(3) { left: -200px; animation-delay: -16s; }
+        .cloud-outer:nth-child(4) { left: -200px; animation-delay: -24s; }
 
         /* Đám mây trong cùng (di chuyển chậm) */
         .cloud-inner {
@@ -250,21 +250,21 @@
             opacity: 0.1;
             pointer-events: none;
             z-index: -3;
-            animation: drift-slow 40s infinite linear;
+            animation: drift-slow 50s infinite linear;
         }
 
-        .cloud-inner:nth-child(1) { left: -150px; animation-delay: 0s; }
-        .cloud-inner:nth-child(2) { left: 20%; animation-delay: -10s; }
-        .cloud-inner:nth-child(3) { left: 50%; animation-delay: -20s; }
+        .cloud-inner:nth-child(1) { left: -250px; animation-delay: 0s; }
+        .cloud-inner:nth-child(2) { left: -250px; animation-delay: -16s; }
+        .cloud-inner:nth-child(3) { left: -250px; animation-delay: -32s; }
 
         @keyframes drift-fast {
             from { transform: translateX(0); }
-            to { transform: translateX(calc(100vw + 200px)); }
+            to { transform: translateX(calc(100vw + 400px)); }
         }
 
         @keyframes drift-slow {
             from { transform: translateX(0); }
-            to { transform: translateX(calc(100vw + 300px)); }
+            to { transform: translateX(calc(100vw + 500px)); }
         }
 
         /* Tia sét chớp chớp */
@@ -362,26 +362,30 @@
     <script>
         // Tạo tia sét với các chi nhánh chân thực
         function generateLightningBolts() {
-            const positions = [
-                { x: 15, branches: 3 },
-                { x: 50, branches: 2 },
-                { x: 80, branches: 3 }
-            ];
-
-            return positions.map(pos => {
-                const mainBolt = `<div class="lightning-bolt main" style="left: ${pos.x}%; top: 0; height: 400px;"></div>`;
+            // Tạo ngẫu nhiên số lượng tia sét (1-3 tia)
+            const numBolts = Math.floor(Math.random() * 3) + 1;
+            const bolts = [];
+            
+            for (let i = 0; i < numBolts; i++) {
+                const x = Math.random() * 80 + 10; // Vị trí ngang ngẫu nhiên 10-90%
+                const numBranches = Math.floor(Math.random() * 3) + 2; // 2-4 chi nhánh
+                const rotation = (Math.random() - 0.5) * 30; // Xoay tia sét -15 đến 15 độ
                 
-                const branches = Array.from({ length: pos.branches }, (_, i) => {
-                    const branchX = (Math.random() - 0.5) * 60;
-                    const branchY = Math.random() * 300 + 50;
-                    const branchHeight = Math.random() * 100 + 80;
-                    const branchRotation = (Math.random() - 0.5) * 40;
+                const mainBolt = `<div class="lightning-bolt main" style="left: ${x}%; top: 0; height: 400px; transform: rotate(${rotation}deg); transform-origin: top center;"></div>`;
+                
+                const branches = Array.from({ length: numBranches }, (_, j) => {
+                    const branchX = (Math.random() - 0.5) * 80;
+                    const branchY = Math.random() * 350 + 30;
+                    const branchHeight = Math.random() * 120 + 60;
+                    const branchRotation = (Math.random() - 0.5) * 60;
                     
-                    return `<div class="lightning-bolt branch" style="left: calc(${pos.x}% + ${branchX}px); top: ${branchY}px; height: ${branchHeight}px; transform: rotate(${branchRotation}deg); animation-delay: ${0.02 * (i + 1)}s;"></div>`;
+                    return `<div class="lightning-bolt branch" style="left: calc(${x}% + ${branchX}px); top: ${branchY}px; height: ${branchHeight}px; transform: rotate(${branchRotation}deg); animation-delay: ${0.02 * (j + 1)}s;"></div>`;
                 }).join('');
 
-                return mainBolt + branches;
-            }).join('');
+                bolts.push(mainBolt + branches);
+            }
+            
+            return bolts.join('');
         }
 
         // Hiệu ứng tia sét chớp chớp
@@ -389,7 +393,7 @@
             const lightning = document.getElementById('lightning');
             const screenFlash = document.getElementById('screenFlash');
             
-            // Tạo tia sét mới
+            // Tạo tia sét mới với ngẫu nhiên
             lightning.innerHTML = generateLightningBolts();
             
             // Hiển thị tia sét
@@ -408,11 +412,11 @@
             const delay = Math.random() * 4000 + 4000; // 4-8 giây
             setTimeout(() => {
                 createLightning();
-                // Nếu có khả năng, tạo thêm một chuỗi chớp trong 0.4 giây
-                if (Math.random() > 0.6) {
+                // 50% khả năng có tia sét thứ hai trong 0.4 giây
+                if (Math.random() > 0.5) {
                     setTimeout(() => {
                         createLightning();
-                    }, 250);
+                    }, 300);
                 }
                 scheduleLightning();
             }, delay);
@@ -421,6 +425,15 @@
         // Bắt đầu hiệu ứng tia sét khi trang tải
         document.addEventListener('DOMContentLoaded', () => {
             scheduleLightning();
+            
+            // Thêm sự kiện cho các link ngoài
+            const externalLinks = document.querySelectorAll('a[target="_blank"]');
+            externalLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('Tạm thời chưa có gì để xem');
+                });
+            });
         });
     </script>
     <div class="container">
