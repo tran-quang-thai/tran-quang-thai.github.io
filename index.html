@@ -20,7 +20,7 @@
             --secondary-text-color: #a0a0a0; /* Màu chữ phụ */
             --card-background: #1e1e1e; /* Màu nền thẻ/khối */
             --border-color: #333333; /* Màu đường viền nhẹ */
-            --font-family: 'Poppins', sans-serif;
+            --font-family: 'Consolas', sans-serif;
         }
 
         body {
@@ -135,10 +135,28 @@
             font-size: 1.2em;
             font-weight: 300;
             color: var(--secondary-text-color);
+            /* Đảm bảo text không bị co lại khi gõ */
+            min-height: 1.2em; 
+            margin-bottom: 10px;
         }
         
         .hero p strong {
             color: var(--text-color);
+        }
+
+        /* Hiệu ứng gõ và con trỏ nhấp nháy */
+        .typing-text {
+            display: inline-block;
+            white-space: pre-wrap; /* Quan trọng để giữ định dạng dòng mới */
+            overflow: hidden;
+            border-right: 2px solid var(--primary-color);
+            padding-right: 5px; /* Khoảng cách giữa chữ và con trỏ */
+            animation: blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary-color); }
         }
         
         /* Nút hành động */
@@ -213,7 +231,7 @@
             color: var(--primary-color);
         }
 
-        /* Background Parallax và Lightning */
+        /* Background Parallax và Lightning (Giữ nguyên) */
         body::before {
             content: '';
             position: fixed;
@@ -226,7 +244,6 @@
             z-index: -1;
         }
 
-        /* Đám mây ngoài cùng (di chuyển nhanh) */
         .cloud-outer {
             position: fixed;
             top: 10%;
@@ -235,6 +252,7 @@
             pointer-events: none;
             z-index: -2;
             animation: drift-fast 25s infinite linear;
+            color: var(--secondary-text-color); /* Thêm màu để icon mây dễ thấy hơn */
         }
 
         .cloud-outer:nth-child(1) { left: -200px; animation-delay: 0s; }
@@ -242,7 +260,6 @@
         .cloud-outer:nth-child(3) { left: -200px; animation-delay: -16s; }
         .cloud-outer:nth-child(4) { left: -200px; animation-delay: -24s; }
 
-        /* Đám mây trong cùng (di chuyển chậm) */
         .cloud-inner {
             position: fixed;
             top: 25%;
@@ -251,6 +268,7 @@
             pointer-events: none;
             z-index: -3;
             animation: drift-slow 50s infinite linear;
+            color: var(--secondary-text-color);
         }
 
         .cloud-inner:nth-child(1) { left: -250px; animation-delay: 0s; }
@@ -267,7 +285,7 @@
             to { transform: translateX(calc(100vw + 500px)); }
         }
 
-        /* Tia sét chớp chớp */
+        /* Tia sét chớp chớp (Giữ nguyên) */
         .lightning {
             position: fixed;
             top: 0;
@@ -287,13 +305,11 @@
             filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.7));
         }
 
-        /* Tia chính to hơn */
         .lightning-bolt.main {
             width: 4px;
             height: 400px;
         }
 
-        /* Tia con nhỏ xuyên ra */
         .lightning-bolt.branch {
             width: 2px;
             opacity: 0.7;
@@ -343,33 +359,28 @@
 </head>
 
     <body>
-    <!-- Đám mây ngoài cùng (di chuyển nhanh) -->
     <div class="cloud-outer">☁</div>
     <div class="cloud-outer">☁</div>
     <div class="cloud-outer">☁</div>
     <div class="cloud-outer">☁</div>
 
-    <!-- Đám mây trong cùng (di chuyển chậm) -->
     <div class="cloud-inner">☁</div>
     <div class="cloud-inner">☁</div>
     <div class="cloud-inner">☁</div>
 
-    <!-- Tia sét -->
     <div class="lightning" id="lightning"></div>
-
     <div class="lightning-screen-flash" id="screenFlash"></div>
 
     <script>
-        // Tạo tia sét với các chi nhánh chân thực
+        // === LOGIC TIA SÉT (Giữ nguyên) ===
         function generateLightningBolts() {
-            // Tạo ngẫu nhiên số lượng tia sét (1-3 tia)
             const numBolts = Math.floor(Math.random() * 3) + 1;
             const bolts = [];
             
             for (let i = 0; i < numBolts; i++) {
-                const x = Math.random() * 80 + 10; // Vị trí ngang ngẫu nhiên 10-90%
-                const numBranches = Math.floor(Math.random() * 3) + 2; // 2-4 chi nhánh
-                const rotation = (Math.random() - 0.5) * 30; // Xoay tia sét -15 đến 15 độ
+                const x = Math.random() * 80 + 10;
+                const numBranches = Math.floor(Math.random() * 3) + 2;
+                const rotation = (Math.random() - 0.5) * 30;
                 
                 const mainBolt = `<div class="lightning-bolt main" style="left: ${x}%; top: 0; height: 400px; transform: rotate(${rotation}deg); transform-origin: top center;"></div>`;
                 
@@ -388,31 +399,25 @@
             return bolts.join('');
         }
 
-        // Hiệu ứng tia sét chớp chớp
         function createLightning() {
             const lightning = document.getElementById('lightning');
             const screenFlash = document.getElementById('screenFlash');
             
-            // Tạo tia sét mới với ngẫu nhiên
             lightning.innerHTML = generateLightningBolts();
             
-            // Hiển thị tia sét
             lightning.style.display = 'block';
             screenFlash.style.display = 'block';
             
-            // Ẩn sau 0.3 giây
             setTimeout(() => {
                 lightning.style.display = 'none';
                 screenFlash.style.display = 'none';
             }, 300);
         }
 
-        // Tạo tia sét mỗi 4-8 giây
         function scheduleLightning() {
-            const delay = Math.random() * 4000 + 4000; // 4-8 giây
+            const delay = Math.random() * 4000 + 4000;
             setTimeout(() => {
                 createLightning();
-                // 50% khả năng có tia sét thứ hai trong 0.4 giây
                 if (Math.random() > 0.5) {
                     setTimeout(() => {
                         createLightning();
@@ -422,16 +427,62 @@
             }, delay);
         }
 
-        // Bắt đầu hiệu ứng tia sét khi trang tải
-        document.addEventListener('DOMContentLoaded', () => {
+        // === LOGIC HIỆU ỨNG GÕ VĂN BẢN ===
+        const sentences = [
+            "Tập trung vào Hệ thống điều khiển và IoT.",
+            "Tôi là sinh viên Kỹ thuật Điện đang tìm kiếm cơ hội ứng dụng kiến thức về mạch điện, PLC và mô phỏng hệ thống trong môi trường công nghiệp thực tế."
+        ];
+        
+        const typingSpeed = 30; // Tốc độ gõ (milliseconds)
+
+        function typeWriter(text, targetElement, delay = 0) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    targetElement.innerHTML = ''; // Xóa nội dung cũ
+                    targetElement.classList.add('typing-text'); // Thêm hiệu ứng con trỏ
+
+                    let i = 0;
+                    function type() {
+                        if (i < text.length) {
+                            targetElement.innerHTML += text.charAt(i);
+                            i++;
+                            setTimeout(type, typingSpeed);
+                        } else {
+                            targetElement.classList.remove('typing-text');
+                            resolve(); // Hoàn thành
+                        }
+                    }
+                    type();
+                }, delay);
+            });
+        }
+
+        // === KHI TRANG TẢI (DOMContentLoaded) ===
+        document.addEventListener('DOMContentLoaded', async () => {
             scheduleLightning();
             
-            // Thêm sự kiện cho các link ngoài
+            // Khởi tạo các phần tử để gõ
+            const p1 = document.getElementById('typing-p1');
+            const p2 = document.getElementById('typing-p2');
+
+            if (p1) {
+                 await typeWriter(sentences[0], p1, 1000); // Gõ câu 1 sau 1s
+            }
+            
+            if (p2) {
+                // Sau khi câu 1 gõ xong, gõ câu 2
+                await typeWriter(sentences[1], p2, 500); 
+            }
+
+            // Xử lý link (Giữ nguyên)
             const externalLinks = document.querySelectorAll('a[target="_blank"]');
             externalLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    alert('Tạm thời chưa có gì để xem');
+                    const url = link.getAttribute('href');
+                    if (url === 'https://github.com/YourUsername' || url === 'https://www.linkedin.com/in/YourUsername') {
+                         e.preventDefault();
+                         alert('Tạm thời chưa có gì để xem. Tôi đang cập nhật nội dung mới! (Coming soon)');
+                    }
                 });
             });
         });
@@ -451,8 +502,8 @@
         <section id="about" class="hero">
             <h1>Trần Quang Thái</h1>
             <p><strong>Kỹ sư Điện</strong></p>
-            <p>Tập trung vào Hệ thống điều khiển và IoT.</p>
-            <p>Tôi là sinh viên Kỹ thuật Điện đang tìm kiếm cơ hội ứng dụng kiến thức về mạch điện, PLC và mô phỏng hệ thống trong môi trường công nghiệp thực tế.</p>
+            <p id="typing-p1"></p> 
+            <p id="typing-p2" style="margin-bottom: 25px;"></p>
             <p style="margin-top: 25px;">
                 <a href="https://github.com/YourUsername" target="_blank" class="action-button">
                     Xem Dự án Kỹ thuật <i class="fas fa-microchip"></i>
